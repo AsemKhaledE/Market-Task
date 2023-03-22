@@ -41,12 +41,8 @@ namespace Market.Models.Repositories
 
         public void Update(int id, UserViewModel userViewModel)
         {
-            if (id != null)
-            {
                 _context.Update(userViewModel.ToEntity());
                 _context.SaveChanges();
-            }
-
         }
 
         public List<UserViewModel> Search(string term)

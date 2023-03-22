@@ -28,7 +28,7 @@ namespace Market.Controllers
             try
             {
                 _loginRepository.IsUserFound(loginViewModel);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "User");
             }
             catch
             {
