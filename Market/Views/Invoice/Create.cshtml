@@ -1,0 +1,50 @@
+﻿@model Market.ViewModel.ProductViewModel
+<div class="col-md-3">
+    <form asp-action="Create">
+        <input type="hidden" asp-for="InvoiceId"/>
+        <div class="form-group">
+            <label asp-for="ProductName" class="form-lable">ProductName</label>
+            <input asp-for="ProductName" type="text" class="form-control " />
+        </div>
+        <div class="form-group">
+            <label asp-for="Quantity" class="form-lable">Quantity</label>
+            <input asp-for="Quantity" type="text" class="form-control " />
+        </div>
+        <div class="form-group">
+            <label asp-for="Price" class="form-lable">Price</label>
+            <input asp-for="Price" type="text" class="form-control " />
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add Product</button>
+            <button type="submit" class="btn btn-primary">Save All Product</button>
+            <a asp-action="Index" class="btn btn-outline-info">Back to List</a>
+        </div>
+
+    </form>
+</div>
+@if (Model.ProductList.Count > 0)
+{
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ProductName</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ProductList.ToList())
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
