@@ -15,7 +15,7 @@ namespace Market.Models.Repositories
         {
             try
             {
-                var user = _context.Users?.Where(u => u.Email == loginViewModel.Email
+                var user = _context.Users?.Where(u => u.UserName == loginViewModel.UserName
             & u.Password == loginViewModel.Password).FirstOrDefault();
                 if (user == null)
                 {
