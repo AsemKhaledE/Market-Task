@@ -17,14 +17,11 @@ namespace Market.Models.Repositories
             {
                 var user = _context.Users?.Where(u => u.UserName == loginViewModel.UserName
             & u.Password == loginViewModel.Password).FirstOrDefault();
-                if (user == null)
-                {
-                    return false;
-                }
-                else
+                if (user!=null)
                 {
                     return true;
                 }
+                return false;
             }
             catch (Exception ex)
             {

@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Market.Data;
 using Market.Models.Repositories;
 using Microsoft.AspNetCore.Localization;
@@ -5,8 +6,10 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Globalization;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
 // Add services to the container.
 builder.Services.AddScoped<ISignUpRepository, SignUpRepository>();
@@ -27,12 +30,13 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
                     new CultureInfo("en-US"),
                     new CultureInfo("ar"),
 
-                };
+    };
 
     options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
 });
+
 string cs = @"Data Source=(localdb)\ProjectModels;Initial Catalog=MarketDb;Integrated Security=True;";
 builder.Services.AddDbContext<MarketDbContext>(op => op.UseSqlServer(cs));
 var app = builder.Build();

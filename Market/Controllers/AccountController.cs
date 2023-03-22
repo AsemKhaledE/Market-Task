@@ -25,14 +25,14 @@ namespace Market.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(LoginViewModel loginViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
                 _loginRepository.IsUserFound(loginViewModel);
                 return RedirectToAction("Index", "User");
             }
-            catch
+            else
             {
-                return View();
+                return View(loginViewModel);
             }
         }
         public ActionResult Create()
@@ -44,15 +44,17 @@ namespace Market.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(User user)
         {
-            try
+            if (ModelState.IsValid)
             {
                 _signUpRepository.SignUp(user);
                 return RedirectToAction(nameof(Index));
+
             }
-            catch
+            else
             {
-                return View();
+                return View(user);
             }
+           
         }
 
     }
