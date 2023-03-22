@@ -17,7 +17,7 @@ namespace Market.Models.Repositories
             {
                 if (product.InvoiceId == 0)
                 {
-                    _context.Invoices?.Add(new Invoice { UserId = 4 });
+                    _context.Invoices?.Add(new Invoice { UserId = 1 });
                     _context.SaveChanges();
                     int lastInvoiceId = _context.Invoices!.ToList().OrderByDescending(x=> x.InvoiceId).First().InvoiceId;
                     var p = product.ToEntity();
