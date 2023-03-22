@@ -1,4 +1,8 @@
-﻿@model Market.Models.User
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer localizer
+@model Market.Models.User
 @{
     ViewData["Title"] = "Index";
 }
@@ -9,20 +13,18 @@
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
 
-                        <h3 class="mb-5">Sign in</h3>
+                        <h3 class="mb-5">@localizer["Sign in"]</h3>
                         <form asp-action="Index" class="mx-1 mx-md-4">
                         <div class="form-outline mb-4">
-                            <input asp-for="UserName" type="email" id="typeEmailX-2" class="form-control form-control-lg" />
-                            <label class="form-label" for="typeEmailX-2">UserName</label>
+                            <input asp-for="UserName" placeholder="@localizer["UserName"]" id="typeEmailX-2" class="form-control form-control-lg" />
                             <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
 
                         <div class="form-outline mb-4">
-                            <input asp-for="Password"  type="password" id="typePasswordX-2" class="form-control form-control-lg" />
-                            <label class="form-label" for="typePasswordX-2">Password</label>
+                            <input asp-for="Password"  placeholder="@localizer["Password"]" id="typePasswordX-2" class="form-control form-control-lg" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">@localizer["Login"]</button>
                         </form>
                     </div>
                 </div>

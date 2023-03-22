@@ -1,29 +1,38 @@
-﻿@model Market.ViewModel.UserViewModel
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model Market.ViewModel.UserViewModel
 
 <div class="col-md-6">
     <form asp-action="EditUser">
         <div class="form-group">
-            <label asp-for="FullName" class="form-lable">FullName</label>
+            <label asp-for="FullName" class="form-lable">@localizer["FullName"]</label>
             <input asp-for="FullName" type="text" class="form-control " />
+            <span class="text-danger" @Html.ValidationMessageFor(model => model.FullName)></span>
         </div>
         <div class="form-group">
-            <label asp-for="UserName" class="form-lable">UserName</label>
+            <label asp-for="UserName" class="form-lable">@localizer["UserName"]</label>
             <input asp-for="UserName" type="text" class="form-control " />
+            <span class="text-danger" @Html.ValidationMessageFor(model => model.UserName)></span>
         </div>
         <div class="form-group">
-            <label asp-for="Password" class="form-lable">Password</label>
+            <label asp-for="Password" class="form-lable">@localizer["Password"]</label>
             <input asp-for="Password" type="text" class="form-control " />
+            <span class="text-danger" @Html.ValidationMessageFor(model => model.Password)></span>
         </div>
         <div class="form-group">
-            <label asp-for="Email" class="form-lable">Email</label>
+            <label asp-for="Email" class="form-lable">@localizer["Email"]</label>
             <input asp-for="Email" type="text" class="form-control " />
+            <span class="text-danger" @Html.ValidationMessageFor(model => model.Email)></span>
         </div>
         <div class="form-group">
-            <label asp-for="Phone" class="form-lable">Phone</label>
+            <label asp-for="Phone" class="form-lable">@localizer["Phone"]</label>
             <input asp-for="Phone" type="text" class="form-control " />
+            <span class="text-danger" @Html.ValidationMessageFor(model => model.Phone)></span>
         </div>
         <p>
-            <button type="submit" class="btn btn-primary"> Edit User  </button>
+            <button type="submit" class="btn btn-primary"> @localizer["Edit User"]  </button>
         </p>
     </form>
 

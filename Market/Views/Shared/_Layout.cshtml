@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer localizer
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,7 +17,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand">Market</a>
+                <a class="navbar-brand">@localizer["Market"]</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,22 +25,26 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Main</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">@localizer["Main"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Invoice" asp-action="Index">Invoice</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Invoice" asp-action="Index">@localizer["Invoices"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Create">SignUp</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Create">@localizer["Registration"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Login</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">@localizer["Login"]</a>
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0" asp-action="Search" asp-controller="User">
-                        <input class="form-control mr-sm-2" name="term" type="search" placeholder="Search Of User" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <input class="form-control mr-sm-2" name="term" type="search" placeholder="@localizer["Search Of User"]" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">@localizer["Search"]</button>
                     </form>
+                    <div>
+                        <partial name="_SelectLanguagePartial" />
+                    </div>
+
                 </div>
             </div>
         </nav>
@@ -48,7 +57,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Market - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2022 - @localizer["Market"] - <a asp-area="" asp-page="/Privacy">@localizer["Privacy"]</a>
         </div>
     </footer>
 

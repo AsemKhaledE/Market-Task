@@ -1,14 +1,18 @@
-﻿@model IEnumerable<Market.ViewModel.ProductViewModel>
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer localizer
+@model IEnumerable<Market.ViewModel.ProductViewModel>
 
 <p>
-   <a asp-action="Create" asp-route-ivoiceId='0' class ="btn btn-primary" > Create New Invoice </a>
+   <a asp-action="Create" asp-route-ivoiceId='0' class ="btn btn-primary" > @localizer["Create New Invoice"] </a>
 </p>
 <table class="table table-hover">
     <thead>
         <tr>
-            <th scope="col">ProductName</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">price</th>
+            <th>@localizer["ProductName"]</th>
+            <th>@localizer["Quantity"]</th>
+            <th>@localizer["price"]</th>
         </tr>
     </thead>
     <tbody>

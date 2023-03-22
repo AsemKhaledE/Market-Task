@@ -21,8 +21,12 @@ namespace Market.Controllers
         [HttpPost]
         public IActionResult AddUserOfList(UserViewModel userViewModel)
         {
-            _userRepository.Add(userViewModel);
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                _userRepository.Add(userViewModel);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(userViewModel);
         }
 
         public ActionResult EditUser(int id)

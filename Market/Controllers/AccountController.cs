@@ -1,6 +1,7 @@
 ﻿using Market.Models;
 using Market.Models.Repositories;
 using Market.ViewModel;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Market.Controllers
@@ -54,8 +55,10 @@ namespace Market.Controllers
             {
                 return View(user);
             }
-           
+
         }
 
+
     }
-}
+} 
+

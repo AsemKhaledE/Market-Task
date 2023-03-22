@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Market.Models;
 
 namespace Market.Models
 {
