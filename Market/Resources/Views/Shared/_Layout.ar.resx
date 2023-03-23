@@ -123,6 +123,9 @@
   <data name="Login" xml:space="preserve">
     <value>تسجيل الدخول</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
   <data name="Main" xml:space="preserve">
     <value>الصفحة الرئيسية</value>
   </data>
