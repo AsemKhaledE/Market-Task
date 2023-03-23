@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Market.Data;
 using Market.Models.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,45 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
 string cs = @"Data Source=(localdb)\ProjectModels;Initial Catalog=MarketDb;Integrated Security=True;";
 builder.Services.AddDbContext<MarketDbContext>(op => op.UseSqlServer(cs));
+var services = builder.Services;
+services.Configure<CookiePolicyOptions>(options =>
+{
+    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+    options.CheckConsentNeeded = context => false;
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+    options.Secure = CookieSecurePolicy.SameAsRequest;
+});
+
+services.AddSession(o =>
+{
+    //o.IdleTimeout = 900;
+});
+
+services.AddMemoryCache();
+
+services.AddResponseCaching();
+
+services
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "Market";
+        options.Cookie.IsEssential = true;
+        options.SlidingExpiration = false;
+        //options.ExpireTimeSpan = DefaultUserSessionSpan;
+        options.LoginPath = "/";
+        options.AccessDeniedPath = "/access-denied";
+    });
+
+services.AddAuthorization(auth =>
+{
+    auth.AddPolicy("Admin", policy =>
+    {
+        policy.RequireClaim(ApplicationClaimTypes.UserId);
+        policy.AuthenticationSchemes.Add(CookieAuthenticationDefaults.AuthenticationScheme);
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -55,6 +95,7 @@ app.UseStaticFiles();
 app.UseRouting();
 var options = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>();
 app.UseRequestLocalization(options.Value);
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -62,3 +103,11 @@ app.MapControllerRoute(
                 pattern: "{controller=Account}/{action=Index}/{id?}");
 
 app.Run();
+
+public static class ApplicationClaimTypes
+{
+    private const string Root = "Thamm/schemas/claims/";
+
+    public const string UserId = Root + "user-id";
+    public const string IsAdmin = Root + "is-admin";
+}

@@ -4,7 +4,7 @@ namespace Market.Models.Repositories
 {
     public interface ILoginRepository
     {
-        Boolean IsUserFound(LoginViewModel loginViewModel);
+        UserViewModel GetUser(LoginViewModel loginViewModel);
 
     }
 }

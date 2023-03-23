@@ -5,6 +5,7 @@ namespace Market.ViewModel
     public class UserViewModel
     {
         public int Id { get; set; }
+        public bool IsAdmin { get; set; }
         public string? FullName { get; set; }
         public string? UserName { get; set; }
         public string? Password { get; set; }
@@ -19,6 +20,7 @@ namespace Market.ViewModel
         public UserViewModel(User item)
         {
             Id = item.Id;
+            IsAdmin = item.IsAdmin;
             UserName = item.UserName;
             FullName = item.FullName;
             Password = item.Password;

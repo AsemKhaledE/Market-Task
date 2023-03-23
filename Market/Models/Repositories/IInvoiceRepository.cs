@@ -6,7 +6,7 @@ namespace Market.Models.Repositories
     {
         List<ProductViewModel> List();
 
-        int Add(ProductViewModel product);
+        int Add(ProductViewModel product,int userId);
 
         List<ProductListViewModel> GetProductListByInvoiceId(int invoiceId); 
     }

@@ -1,8 +1,11 @@
 ﻿using Market.Models;
 using Market.Models.Repositories;
 using Market.ViewModel;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Market.Controllers
 {
@@ -24,12 +27,21 @@ namespace Market.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(LoginViewModel loginViewModel)
+        public async Task<IActionResult> Index(LoginViewModel loginViewModel)
         {
             if (ModelState.IsValid)
             {
-                _loginRepository.IsUserFound(loginViewModel);
-                return RedirectToAction("Index", "User");
+                var user = _loginRepository.GetUser(loginViewModel);
+                if (user == null || user.Id == 0)
+                    return View();
+                else
+                {
+                    var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                    identity.AddClaim(new Claim(ApplicationClaimTypes.UserId, user.Id.ToString()));
+                    identity.AddClaim(new Claim(ApplicationClaimTypes.IsAdmin, user.IsAdmin.ToString()));
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+                    return RedirectToAction("Index", "User");
+                }
             }
             else
             {
@@ -57,8 +69,15 @@ namespace Market.Controllers
             }
 
         }
+        [HttpGet]
+        public async Task<ActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            
+            return RedirectToAction(nameof(Index));
+        } 
 
 
     }
-} 
+}
 

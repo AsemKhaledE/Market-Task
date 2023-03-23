@@ -11,13 +11,14 @@ namespace Market.Models.Repositories
         {
             _context = context;
         }
-        public int Add(ProductViewModel product)
+        public int Add(ProductViewModel product , int userId)
         {
             try
             {
                 if (product.InvoiceId == 0)
                 {
-                    _context.Invoices?.Add(new Invoice { UserId = 1 });
+                    
+                    _context.Invoices?.Add(new Invoice { UserId = userId });
                     _context.SaveChanges();
                     int lastInvoiceId = _context.Invoices!.ToList().OrderByDescending(x=> x.InvoiceId).First().InvoiceId;
                     var p = product.ToEntity();

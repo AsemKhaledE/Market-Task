@@ -1,10 +1,12 @@
 ﻿using Market.Models;
 using Market.Models.Repositories;
 using Market.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Market.Controllers
 {
+    [Authorize]
     public class InvoiceController : Controller
     {
         private readonly IInvoiceRepository _invoiceRepository;
@@ -34,7 +36,8 @@ namespace Market.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProductViewModel product)
         {
-            var invoiceId = _invoiceRepository.Add(product);
+            string userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type ==ApplicationClaimTypes.UserId)!.Value;
+            var invoiceId = _invoiceRepository.Add(product,int.Parse(userId));
             return RedirectToAction(nameof(Create), new { InvoiceId = invoiceId });
         }
     }

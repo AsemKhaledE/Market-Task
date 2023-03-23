@@ -11,7 +11,7 @@ namespace Market.Models.Repositories
         {
             _context = context;
         }
-        public Boolean IsUserFound(LoginViewModel loginViewModel)
+        public UserViewModel GetUser(LoginViewModel loginViewModel)
         {
             try
             {
@@ -19,9 +19,9 @@ namespace Market.Models.Repositories
             & u.Password == loginViewModel.Password).FirstOrDefault();
                 if (user!=null)
                 {
-                    return true;
+                    return new UserViewModel(user);
                 }
-                return false;
+                return new UserViewModel();
             }
             catch (Exception ex)
             {
