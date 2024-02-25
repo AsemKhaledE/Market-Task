@@ -4,5 +4,5 @@
 ## Advantages
 - Supported basic market CRUD operations such as adding new invoices.
 - Implemented login and logout security for both user and admin (Authentication, Authorization).
-- add localization in the market system (Ar & En).
+- Using localization in the market system (Ar & En).
 - Utilized Dependency Injection container.
